@@ -1,5 +1,3 @@
-# While Loops
-
 i = 0
 numbers = []
 
@@ -16,5 +14,3 @@ print("The numbers: ")
 
 for num in numbers:
     print(num)
-
-    

@@ -1,5 +1,3 @@
-# Prompting and Passing
-
 from sys import argv
 
 script, user_name = argv
@@ -17,7 +15,7 @@ print("What kind of computer do you have?")
 computer = input(prompt)
 
 print(f"""
-Alrigth, so you said {likes} about liking me.
+Alright, so you said {likes} about liking me.
 You live in {lives}. Not sure where that is.
 And you have a {computer} computer. Nice.
 """)

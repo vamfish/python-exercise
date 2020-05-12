@@ -1,10 +1,10 @@
-# Basic Object-Oriented Analysis and Design
-
+# This is just some basic imports for the game.
 from sys import exit
 from random import randint
 from textwrap import dedent
 
-
+# Define Classes
+## Class Scene
 class Scene(object):
 
     def enter(self):
@@ -12,24 +12,24 @@ class Scene(object):
         print("Subclass it and implement enter().")
         exit(1)
 
-
+## Class Engine
 class Engine(object):
 
     def __init__(self, scene_map):
-        self.scene_map = scene_map
-    
+        self.scene_map = scene_map # this variable is an object of class Map
+
     def play(self):
-        current_scene = self.scene_map.opening_scene()
-        last_scene = self.scene_map.next_scene('finished')
+        current_scene = self.scene_map.opening_scene() # call the method in object scene_map ## This shows how to call method of other object within a class definition!
+        last_scene = self.scene_map.next_scene('finished') # last_scene = Finished() ## which 
 
-        while current_scene != last_scene:
-            next_scene_name = current_scene.enter()
-            current_scene = self.scene_map.next_scene(next_scene_name)
+        while current_scene != last_scene: # when the current_scene is not Finished(), continue the while loop
+            next_scene_name = current_scene.enter() # run a scene corresponding to current_scene, then return the name of the next scene
+            current_scene = self.scene_map.next_scene(next_scene_name) # set the current_scene to an instance of class next_scene_name
 
-        # be sure to print out the last scene
+        # be sure to print out the last scene ## when the current_scene is Finished(), get the enter method from it, and call it with self.
         current_scene.enter()
 
-
+## Class Death
 class Death(Scene):
 
     quips = [
@@ -44,9 +44,9 @@ class Death(Scene):
         print(Death.quips[randint(0, len(self.quips)-1)])
         exit(1)
 
-
+## Class CentralCorridor
 class CentralCorridor(Scene):
-    
+
     def enter(self):
         print(dedent("""
               The Gothons of Planet Percal #25 have invaded your ship and
@@ -58,7 +58,7 @@ class CentralCorridor(Scene):
               You're running down the central corridor to the Weapons
               Armory when a Gothon jumps out, red scaly skin, dark grimy
               teeth, and evil clown costume flowing around his hate
-              filled body. He's blockig the door to the Armory and
+              filled body. He's blocking the door to the Armory and
               about to pull a weapon to blast you.
               """))
 
@@ -76,7 +76,7 @@ class CentralCorridor(Scene):
                   dead. Then he eats you.
                   """))
             return 'death'
-    
+
         elif action == "dodge!":
             print(dedent("""
                   Like a world class boxer you dodge, weave, slip and
@@ -84,7 +84,7 @@ class CentralCorridor(Scene):
                   past your head. In the middle of your artful dodge
                   your foot slips and you bang your head on the metal
                   wall and pass out. You wake up shortly after only to
-                  die as the Gothon stomps on your head and eats you.
+                  die as the Gothon's stomps on your head and eats you.
                   """))
             return 'death'
 
@@ -100,12 +100,12 @@ class CentralCorridor(Scene):
                   Weapon Armory door.
                   """))
             return 'laser_weapon_armory'
-    
+
         else:
-            print("DOES NOT COMPUTE！")
+            print("DOES NOT COMPUTE!")
             return 'central_corridor'
 
-
+## Class LaserWeaponArmory
 class LaserWeaponArmory(Scene):
     
     def enter(self):
@@ -119,7 +119,7 @@ class LaserWeaponArmory(Scene):
               the lock closes forever and you can't get the bomb. The
               code is 3 digits.
               """))
-        
+
         code = f"{randint(1,9)}{randint(1,9)}{randint(1,9)}"
         guess = input("[keypad]> ")
         guesses = 0
@@ -146,7 +146,7 @@ class LaserWeaponArmory(Scene):
                   """))
             return 'death'
 
-
+## Class TheBridge
 class TheBridge(Scene):
 
     def enter(self):
@@ -171,7 +171,7 @@ class TheBridge(Scene):
                   blow up when it goes off.
                   """))
             return 'death'
-    
+
         elif action == "slowly place the bomb":
             print(dedent("""
                   You point your blaster at the bomb under your arm and
@@ -183,14 +183,15 @@ class TheBridge(Scene):
                   Gothons can't get out. Now that the bomb is placed
                   you run to the escape pod to get off this tin can.
                   """))
+
             return 'escape_pod'
         else:
             print("DOES NOT COMPUTE!")
-            return 'the_bridge'
+            return "the_bridge"
 
-
+## Class EscapePod
 class EscapePod(Scene):
-
+    
     def enter(self):
         print(dedent("""
               You rush through the ship desperately trying to make it to
@@ -201,11 +202,13 @@ class EscapePod(Scene):
               them could be damaged but you don't have time to look.
               There's 5 pods, which one do you take?
               """))
+
         good_pod = randint(1,5)
         guess = input("[pod #]> ")
 
+
         if int(guess) != good_pod:
-            print(dedent("""
+            print(dedent(f"""
                   You jump into pod {guess} and hit the eject button.
                   The pod escapes out into the void of space, then
                   implodes as the hull ruptures, crushing your body into
@@ -213,7 +216,7 @@ class EscapePod(Scene):
                   """))
             return 'death'
         else:
-            print(dedent("""
+            print(dedent(f"""
                   You jump into pod {guess} and hit the eject button.
                   The pod easily slides out into space heading to the
                   planet below. As it flies to the planet, you look
@@ -221,16 +224,17 @@ class EscapePod(Scene):
                   bright star, taking out the Gothon ship at the same
                   time. You won!
                   """))
+
             return 'finished'
 
-
+## Class Finished
 class Finished(Scene):
 
     def enter(self):
         print("You won! Good job.")
         return 'finished'
 
-
+## Class Map
 class Map(object):
 
     scenes = {
@@ -246,13 +250,12 @@ class Map(object):
         self.start_scene = start_scene
 
     def next_scene(self, scene_name):
-        val = Map.scenes.get(scene_name)
+        val = Map.scenes.get(scene_name) # get the corresponding class and then set val to an instance of this class. Is that OK to replace Map with self?
         return val
 
     def opening_scene(self):
         return self.next_scene(self.start_scene)
 
-
-a_map = Map('central_corridor')
+a_map = Map('central_corridor') # The start_scene = 'central_corridor'
 a_game = Engine(a_map)
 a_game.play()

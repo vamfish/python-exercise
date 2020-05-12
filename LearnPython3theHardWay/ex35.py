@@ -1,5 +1,3 @@
-# Branches and Functions
-
 from sys import exit
 
 def gold_room():
@@ -56,7 +54,7 @@ def cthulhu_room():
     else:
         cthulhu_room()
 
-    
+
 def dead(why):
     print(why, "Good job!")
     exit(0)

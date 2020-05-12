@@ -1,5 +1,3 @@
-# Learning to Speak Object-Oriented
-
 import random
 from urllib.request import urlopen
 import sys
@@ -34,7 +32,7 @@ for word in urlopen(WORD_URL).readlines():
 
 
 def convert(snippet, phrase):
-    class_names = [w.capitalize() for w in
+    class_names = [w.capitalize() for w in 
                    random.sample(WORDS, snippet.count("%%%"))]
     other_names = random.sample(WORDS, snippet.count("***"))
     results = []
@@ -51,7 +49,7 @@ def convert(snippet, phrase):
         # fake class names
         for word in class_names:
             result = result.replace("%%%", word, 1)
-        
+
         # fake other names
         for word in other_names:
             result = result.replace("***", word, 1)

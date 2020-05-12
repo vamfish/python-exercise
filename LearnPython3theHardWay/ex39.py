@@ -1,5 +1,3 @@
-# Dictionaries, Oh Lovely Dictionaries
-
 # create a mapping of state to abbreviation
 states = {
     'Oregon': 'OR',
@@ -30,7 +28,7 @@ print('-' * 10)
 print("Michigan's abbreviation is: ", states['Michigan'])
 print("Florida's abbreviation is: ", states['Florida'])
 
-# do it by using the state then cities dict
+# do it by using the state than cities dict
 print('-' * 10)
 print("Michigan has: ", cities[states['Michigan']])
 print("Florida has: ", cities[states['Florida']])

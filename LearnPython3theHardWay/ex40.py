@@ -1,5 +1,3 @@
-# A First Class Example
-
 class Song(object):
 
     def __init__(self, lyrics):

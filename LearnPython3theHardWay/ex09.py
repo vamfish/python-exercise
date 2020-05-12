@@ -1,5 +1,3 @@
-# Printing, Printing, Printing
-
 # Here's some new strange stuff, remeber type it exactly.
 
 days = "Mon Tue Wed Thu Fri Sat Sun"
