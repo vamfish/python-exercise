@@ -3,13 +3,14 @@ import os
 import sys
 
 from hero import Hero
+from slot import Slot
 
 class Engine(object):
 
     def __init__(self):
         pass
     
-    def play(self):
+    def initialize(self):
         print("Welcome to <<Tower of Fortune>>\nDo you want to LOAD a savefile?")
         while True:
             ans = input("(Y/N)> ")
@@ -28,7 +29,8 @@ class Engine(object):
             else:
                 print("Wrong Input!")
                 continue
-        
+
+    def play(self):
         # Tips for next step
         while True:
             ans = input("E: enter tower\nS: save\nB: enter store\n> ")
@@ -43,8 +45,7 @@ class Engine(object):
                 continue
             elif ans == "B" or ans == "b":
                 # Enter the store
-                # self.enter('store')
-                print("B")
+                self.enter('store')
                 break
             else:
                 print("Wrong Input!")
@@ -71,7 +72,42 @@ class Engine(object):
         print(f"Successfully loaded {hero1.name}.save\nLoaded parameters: {hero_paras}")
 
     def enter(self, scene_name):
-        pass
+        if scene_name == 'tower':
+            pass
+        elif scene_name == 'store':
+            inventory = {'HP':60, 'MaxHP':20, 'ATK':20}# slot contents
+            slot_store = Slot(list(inventory.keys()), list(inventory.values()))
+            print("Welcome!! Our HERO!!\nAnd good luck!")
+            hero1.print_status()
+            print("Tips: Pay 10 gold, and you can get more HP/MaxHP/ATK")
+            while True:
+                ans = input("E: back to home\nS: save\nP: pay 10 gold\n> ")
+                if ans == "E" or ans == "e":
+                    # back to home
+                    self.enter('home')
+                    break
+                elif ans == "S" or ans == "s":
+                    # save the status
+                    self.save()
+                    continue
+                elif ans == "P" or ans == "p":
+                    # pay 10 gold
+                    if hero1.pay(10):
+                        # slot result and print
+                        slot_store_results = slot_store.run()
+                        print(f"RESULT:\n\t[{slot_store_results[0]}|{slot_store_results[1]}|{slot_store_results[2]}]")
+                        slot_store_true_result = slot_store.result(slot_store_results)
+                        # change status of hero and print
+                        hero1.update(slot_store_true_result)
+                    continue
+                else:
+                    print("Wrong Input!")
+                    continue
+        elif scene_name == 'home':
+            print("Welcome home!")
+            self.play()
+
 
 engine = Engine()
+engine.initialize()
 engine.play()

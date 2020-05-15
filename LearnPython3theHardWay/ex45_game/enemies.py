@@ -18,23 +18,27 @@ def enemy_floor(floor):
             return enemy_all[i] # get the enemy dict for floor #i
 
 
-def enemy_name(name):# return the parameters corresponding to the name
+def enemy_status(name):# return the parameters corresponding to the name
     for i in range(8):
         if name == enemy_all[i]["small"]:
-            return Enemy(5*(i+1)*1, (i+1)*1, 10*(i+1)*1)
+            return (5*(i+1)*1, (i+1)*1, 10*(i+1)*1)
         elif name == enemy_all[i]["middle"]:
-            return Enemy(5*(i+1)*2, (i+1)*2, 10*(i+1)*2)
+            return (5*(i+1)*2, (i+1)*2, 10*(i+1)*2)
         elif name == enemy_all[i]["large"]:
-            return Enemy(5*(i+1)*3, (i+1)*3, 10*(i+1)*3)
+            return (5*(i+1)*3, (i+1)*3, 10*(i+1)*3)
         elif name == enemy_all[i]["boss"]:
-            return Enemy(5*(i+1)*5, (i+1)*5, 10*(i+1)*5)
+            return (5*(i+1)*5, (i+1)*5, 10*(i+1)*5)
 
 class Enemy(object):
 
-    def __init__(self, hp, atk, gold):
+    def __init__(self, name, level, floor, hp, atk, gold):
+        self.name = name
+        self.level = level
+        self.floor = floor
         self.hp = hp
-        self.ark = atk
+        self.atk = atk
         self.gold = gold
         pass
 
-    pass
+    def print_status(self):
+        print(f"\tHP: {self.hp}\n\tATK: {self.atk}\n\tGold: {self.gold}\n")
