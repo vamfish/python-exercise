@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: FortuneTower-vamfish
+Version: 0.1
+Summary: Game of Fortune Tower
+Home-page: https://github.com/vamfish/python-exercise/tree/wsl/LearnPython3theHardWay/ex45_game
+Author: vamfish
+Author-email: vamfish@icloud.com
+License: UNKNOWN
+Description: # FortuneTower by vamfish
+        
+        This is a little game without ui. You can create a hero to defeat the enemies in the tower by your fortune!
+        
+        > Tips: You can save and load according to your hero's name.
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
